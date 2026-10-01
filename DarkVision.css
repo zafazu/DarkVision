@@ -1,8 +1,6 @@
 :root {
-  --theme-version: 'Dev 1.3.10 / 2.13.01';
+  --theme-version: 'Dev1.3.54 / 2.15.49';
   --profile-gradient-overlay-color: #4d444444 !important;
-  --theme-transparency-amount: 0.5;
-  --theme-blur-amount: 1px;
   --main-color: #292929;
   --main-color-border: #1A1717;
   --hover-color: #747474;
@@ -21,11 +19,13 @@
   --channels-width: 220px;
   --members-width: 240px;
   --fade-banner-invite: #131416;
-  --onyx-profile-color: #0C0C0E;
-  
+  --onyx-profile-color: rgb(0, 0, 0);
+  /*t*/ --enable-transparency: 1; /*1 = true and 0 = false*/
+  /*t*/ --enable-blur: 1; /*1 = true and 0 = false*/
+
   /* Background */
   --background-shading: 160%;
-  --background-image: url();
+  --background-image: url(); /*does not work btw*/
   --background-position: center;
   --background-size: 125%;
   --background-repeat: repeat;
@@ -37,12 +37,20 @@
   --background-grayscale: 0%;
   --background-sepia: 0%;
   --background-main-transparency: rgba(0, 0, 0, 0);
-  --background-main-blur: blur(40px);
-  --semi-tranparency: rgba(0, 0, 0, 0.5);
+  --background-main-blur: blur(var(--blur-main));
+  --background-blur: calc(var(--enable-blur) * var(--blur-main));
 
   --home-icon: url(https://discord.com/assets/7ebbc1790864207a.webp);
   --home-position: center;
   --home-size: 50px;
+
+  /* Blur */
+  --blur-main: 40px;
+  --blur-modal: 12px;
+  --blur-popup: 10px;
+  --blur-button: 8px;
+  --blur-spotify-button: 8px;
+  --blur-spoiler: 40px;
 
   /* Channels */
   --channel-unread: var(--main-color);
@@ -65,6 +73,28 @@
   --backdrop-sepia: var(--background-sepia);
   --backdrop-blur: var(--background-blur);
 
+  /* Transparency */
+  --transparency-settings: #00000046;
+  --transparency-bio: #211f1f42;
+  --transparency-credentials: #0c0c0c83;
+  --transparency-keybinds: #2b2a2a63;
+  --transparency-quick-actions: #55555571;
+  --transparency-quick-actions-hover: #7e7e7e71;
+  --transparency-boost: #3d3d3d52;
+  --transparency-boost-dark: #141414a1;
+  --transparency-account: #03030333;
+  --transparency-account-banner: #1818183b;
+  --transparency-appearance: #03030356;
+  --transparency-popup: #14141494;
+  --transparency-modal: rgba(19, 20, 22, 0.5);
+  --transparency-separator: rgba(19, 20, 22, 0.1);
+  --transparency-tips: rgba(23, 24, 26, 0.6);
+  --transparency-banner-button: #00000063;
+  --transparency-scrim: #000000cc;
+  --transparency-spotify-button: rgba(38, 39, 43, 0.2);
+  --transparency-menu: rgba(0, 0, 0, 0.5);
+  --transparency-spotify-artwork: 0.3;
+  --transparency-new-message: rgba(0,0,0,0);
   /* User popout */
   --user-popout-image: var(--background-image);
   --user-popout-position: var(--background-position);
@@ -112,6 +142,7 @@
   /* Spotify: Progress bar */
   --isc-progress-bar:       var(--accent-2, hsl(141, 41%, 45%));
   --isc-progress-bar-hover: var(--accent-2, hsl(141, 41%, 65%));
+  --isc-progress-bar-track: hsla(0, 0%, 100%, 0.2);
 
   /* Spotify: Buttons */
   --isc-button-icon:       var(--text-4, var(--text-default));
@@ -129,18 +160,24 @@
   /* Transparent messaging */
   --tm-enable:               1;
   --tm-blur:                 10px;
-  --chat-background-default: 0 0;
+
+  /* Typing indicator */
+  --typing-speed: 1.3s;
 }
 
 
-
+.dvoa-custom-background {
+  display: none !important;
+}
 
 .force-transparent-bg {
   overflow: visible !important;
 }
 
-.custom-user-profile-theme .profile__9c3be:before {
-    background: none ;
+@container style(--enable-transparency: 1) {
+  .custom-user-profile-theme .profile__9c3be:before {
+    background: none;
+  }
 }
 
 
@@ -162,7 +199,7 @@
   --__spoiler-warning-background-color:         var(--opacity-black-60);
   --__spoiler-warning-background-color--hover:  var(--opacity-black-88);
   --__spoiler-container-box-shadow-color:       var(--opacity-black-8);
-  --__obscured-background-blur-radius:          40px;
+  --__obscured-background-blur-radius:          calc(var(--enable-blur) * var(--blur-spoiler));
   --__obscured-background-brightness:           0.55;
 }
 
@@ -171,50 +208,48 @@
 
 
 /* Activity itemcards */
-.itemCard__7e549 {
-  background-color: transparent !important;
+@container style(--enable-transparency: 1) {
+  .itemCard__7e549 {
+    background-color: transparent !important;
+  }
 }
 
 /* Settings */
-.scroller__6131a,
-.contentBody_e9e3ed {
-  background-color: transparent !important;
-}
+@container style(--enable-transparency: 1) {
+  .scroller__6131a,
+  .contentBody_e9e3ed {
+    background-color: transparent !important;
+  }
 
-.navScroller__409aa {
-  background-color: transparent !important;
+  .navScroller__409aa {
+    background-color: transparent !important;
+  }
 }
 
 /* About Me / Bio BG */
-.overlay_c0bea0 {
-  background-color: #211f1f42 !important;
+@container style(--enable-transparency: 1) {
+  .overlay_c0bea0 {
+    background-color: var(--transparency-bio) !important;
+  }
 }
 
 /* Message box */
-.channelTextArea_f75fb0 {
-  background-color: transparent !important;
-}
+@container style(--enable-transparency: 1) {
+  .channelTextArea_f75fb0 {
+    background-color: transparent !important;
+  }
 
-.textArea__74017 {
-  color: transparent !important;
-}
+  .scrollableContainer__74017 {
+    background-color: transparent !important;
+  }
 
-.scrollableContainer__74017 {
-  background-color: transparent !important;
-}
+  .themedBackground__74017 {
+    background-color: transparent !important;
+  }
 
-.themedBackground__74017 {
-  background-color: transparent !important;
-}
-
-/* Activity background */
-.overlayBackground_c69a7b {
-  background-color: transparent !important;
-}
-
-/* Reaction buttons */
-.reactionBtn__23977 {
-  background-color: transparent !important;
+  .textArea__74017 {
+    color: transparent !important;
+  }
 }
 
 .innerDisabled__74017 {
@@ -230,12 +265,10 @@
   display: none;
 }
 
-
-
 /* Buttons */
 .actionButton_f8fa06 {
   background-color: var(--main-color);
-  color: oklab(lightness a b);
+  color: var(--text-normal);
 }
 
 /* DM names */
@@ -244,18 +277,24 @@
 }
 
 /* DM searchbar */
-.DraftEditor-root,
-.icon_c322aa {
-  background-color: transparent !important;
+@container style(--enable-transparency: 1) {
+  .DraftEditor-root,
+  .icon_c322aa {
+    background-color: transparent !important;
+  }
 }
 
-.images-light {
-  background-color: transparent !important;
-  color: transparent !important;
+@container style(--enable-transparency: 1) {
+  .images-light {
+    background-color: transparent !important;
+    color: transparent !important;
+  }
 }
 
-.title_c38106 {
-  background-color: transparent !important;
+@container style(--enable-transparency: 1) {
+  .title_c38106 {
+    background-color: transparent !important;
+  }
 }
 
 .theme-light {
@@ -282,7 +321,7 @@
   display: none;
 }
 
-/* Searchbar removal */
+/* Searchbar removal (idk which search bar this removes sowry)*/
 .searchBarComponent__35e86,
 .searchBar_e6b769 {
   display: none;
@@ -306,16 +345,23 @@
   position: relative;
 }
 
-/* Friend status */
+
+/*
+" Friend status "
+ this is the activity thing idk who called this friend status
+
 .container_c9d15c {
   display: none;
 }
+*/
 
-/* Add Friend tab highlight */
+
+/*  i don't think you will need this [OLD]
+
 .tabBar__133bf :last-child {
   background-color: var(--main-color) !important;
 }
-
+*/
 
 
 .base__5e434 .bar_c38106 .title_c38106 .text-sm\/medium_cf4812 {
@@ -387,7 +433,6 @@
 }
 
 .visual-refresh:not(.platform-osx) .leading_c38106::after {
-  content: '7.0.1';
   position: static;
   margin-top: -5px;
   margin-left: 5px;
@@ -398,17 +443,16 @@
   order: 3;
 }
 
-.tabListScroller__37bfc {
-  background-color: transparent !important;
+@container style(--enable-transparency: 1) {
+  .tabListScroller__37bfc {
+    background-color: transparent !important;
+  }
 }
 
 .title_c38106 .title_edbb22 .icon_f34534 {
   display: none;
 }
 
-.title_edbb22 {
-  display: none;
-}
 
 /* Active Now text */
 .header__7d20c {
@@ -487,22 +531,25 @@
 .container_f37cb1 { border-top-color: #5c4e47 !important; }
 .container__2637a { border-top-color: #5c4e47 !important; }
 
-.title_edbb22,
-.searchBar_e6b769 {
+.title_edbb22 {
   display: none;
 }
 
-
 /* CLAN TAGS */
 
-.avatarContainer_dca174  { background: none !important; }
-.container_dca174        { background-color: transparent !important; }
-.avatarWrapper_dca174    { background-color: transparent !important; }
-.chipletContainerInner__10651 { background-color: transparent !important; }
-
 .svg__2338f {
-  background-color: transparent !important;
   border-radius: 20% !important;
+}
+
+@container style(--enable-transparency: 1) {
+  .avatarContainer_dca174  { background: none !important; }
+  /* .container_dca174        { background-color: transparent !important; } <-- bad boy~ */
+  .avatarWrapper_dca174    { background-color: transparent !important; }
+  .chipletContainerInner__10651 { background-color: transparent !important; }
+
+  .svg__2338f {
+    background-color: transparent !important;
+  }
 }
 
 .animatorLeft_faf9c0 {
@@ -542,15 +589,15 @@ span.guildTagContainer__63ed3 {
   display: none;
 }
 
-.button__67645:active {
-  backdrop-filter: blur(8px);
+@container style(--enable-blur: 1) {
+  .button__67645:active {
+    backdrop-filter: blur(var(--blur-button));
+  }
 }
 
-.button_e6e74f {
-  display: none !important;
-}
+/*
+Temp Fix
 
-/* Probably Temp, but now buttons are fixed.
 .buttonChildrenWrapper_a22cb0 {
   background-color: var(--main-color);
 }
@@ -566,18 +613,26 @@ span.guildTagContainer__63ed3 {
 }
 
 .bannerButton_fb7f94 {
-  background-color: #00000063;
   border-radius: 10px;
 }
 
+@container style(--enable-transparency: 1) {
+  .bannerButton_fb7f94 {
+    background-color: var(--transparency-banner-button);
+  }
+}
+
+/* and what idiot design this thing?  you did sir  fair enough
 .icon_a22cb0 {
   color: white;
 }
+*/
 
+/*
 .icon__0c4c4 {
-  margin-top: 7px !important;
+  margin-top: 7px;
 }
-
+*/
 
 /* SERVER NITRO BOOST BAR TODO: FADE */
 
@@ -599,13 +654,20 @@ span.guildTagContainer__63ed3 {
 
 /* Settings searchbar */
 .input__0ed4f {
-  background-color: transparent;
   box-shadow: none !important;
 }
 
+@container style(--enable-transparency: 1) {
+  .input__0ed4f {
+    background-color: transparent;
+  }
+}
+
 /* Server banner black box */
-.scroller__629e4 {
-  background-color: transparent !important;
+@container style(--enable-transparency: 1) {
+  .scroller__629e4 {
+    background-color: transparent !important;
+  }
 }
 
 /* User profile sidebar footer. Thanks to Computing Cat */
@@ -689,12 +751,14 @@ span.guildTagContainer__63ed3 {
 }
 
 /* Section backgrounds */
-.section__00943    { background-color: transparent !important; }
-.profileBody__9c3be  { background-color: transparent !important; }
-.tabPanelScroller__37bfc { background-color: transparent !important; }
-.listScroller__9d78f  { background-color: transparent !important; }
-.container__8061a  { background-color: transparent !important; }
-.body__5be3e       { background-color: transparent !important; }
+@container style(--enable-transparency: 1) {
+  .section__00943    { background-color: transparent !important; }
+  .profileBody__9c3be  { background-color: transparent !important; }
+  .tabPanelScroller__37bfc { background-color: transparent !important; }
+  .listScroller__9d78f  { background-color: transparent !important; }
+  .container__8061a  { background-color: transparent !important; }
+  .body__5be3e       { background-color: transparent !important; }
+}
 
 /* Hide forum header when post is open */
 .content_d125d2:has(.container__0f2e8) {
@@ -778,75 +842,106 @@ span.guildTagContainer__63ed3 {
 
 /* SETTINGS MENU */
 
-/* Translucent settings menu by benzeel V2 */
+/* Translucent settings menu by benzeel/computercat V2 */
 
 .fixedContent__409aa:after {
   border-top-left-radius:  8px;
   border-top-right-radius: 8px;
 }
 
-.content_e9e3ed       { background: #00000046; }
-.contentHeader_e9e3ed { background: transparent !important; }
+@container style(--enable-transparency: 1) {
+  .content_e9e3ed       { background: var(--transparency-settings); }
+  .contentHeader_e9e3ed { background: transparent !important; }
+}
 
 /* Security Keys */
-.credentialItem__6c75d { background: none; }
 .credentialItem__6c75d:is(:first-child) { border: 0; }
+
 .credentialList__6c75d {
-  background:    #0c0c0c83;
   border-radius: 8px;
   border:        1px solid var(--border-subtle);
 }
 
+@container style(--enable-transparency: 1) {
+  .credentialItem__6c75d { background: none; }
+  .credentialList__6c75d { background: var(--transparency-credentials); }
+}
+
 /* Krisp */
-.card__73069:not(.outline__73069) { background: none; }
+@container style(--enable-transparency: 1) {
+  .card__73069:not(.outline__73069) { background: none; }
+}
 
 /* Keybindings */
-.defaultKeybindGroup__740f2 { background: #2b2a2a63; }
+@container style(--enable-transparency: 1) {
+  .defaultKeybindGroup__740f2 { background: var(--transparency-keybinds); }
+}
 
 /* Vencord quick actions */
-.vc-card-base                        { background: none; }
-.vc-settings-quickActions-pill       { background: #55555571; }
-.vc-settings-quickActions-pill:hover { background: #7e7e7e71; }
-.vc-addon-card                       { background: none; }
+@container style(--enable-transparency: 1) {
+  .vc-card-base                        { background: none; }
+  .vc-settings-quickActions-pill       { background: var(--transparency-quick-actions); }
+  .vc-settings-quickActions-pill:hover { background: var(--transparency-quick-actions-hover); }
+  .vc-addon-card                       { background: none; }
+}
 
 /* Server boosts */
 .appliedBoostContainer_ceb06a {
-  background: none;
-  border:     1px solid var(--border-subtle);
+  border: 1px solid var(--border-subtle);
 }
-.guildContainer__5dba5 { background: #3d3d3d52; }
-.boostContainer_ceb06a { background: #141414a1; }
-.wrapper__5b98e        { background: #3d3d3d52; }
+
+@container style(--enable-transparency: 1) {
+  .appliedBoostContainer_ceb06a { background: none; }
+  .guildContainer__5dba5        { background: var(--transparency-boost); }
+  .boostContainer_ceb06a        { background: var(--transparency-boost-dark); }
+  .wrapper__5b98e               { background: var(--transparency-boost); }
+}
 
 /* Share Nitro */
-.expandedProgressBarContainerSettingsPage_a61c56 {
-  background:      none;
-  backdrop-filter: none;
+@container style(--enable-transparency: 1) {
+  .expandedProgressBarContainerSettingsPage_a61c56 {
+    background:      none;
+    backdrop-filter: none;
+  }
 }
 
 /* My Account */
 .accountProfileCard__1fed1 {
-  background: #03030333;
-  border:     1px solid var(--border-subtle);
+  border: 1px solid var(--border-subtle);
 }
+
 .background__1fed1 {
-  background: #1818183b;
-  border:     1px solid var(--border-subtle);
+  border: 1px solid var(--border-subtle);
 }
-.fieldList__1fed1 { background: none; }
+
+@container style(--enable-transparency: 1) {
+  .accountProfileCard__1fed1 { background: var(--transparency-account); }
+  .background__1fed1        { background: var(--transparency-account-banner); }
+  .fieldList__1fed1         { background: none; }
+}
 
 /* Appearance */
-.cardPrimary__73069,
-.cardPrimary__73069.editable__73069 { background: #03030356; }
+@container style(--enable-transparency: 1) {
+  .cardPrimary__73069,
+  .cardPrimary__73069.editable__73069 { background: var(--transparency-appearance); }
+}
 
 /* Reactions popup + settings menu */
-.container__8a031 {
-  background:      #14141494;
-  backdrop-filter: blur(10px);
+@container style(--enable-transparency: 1) {
+  .container__8a031 {
+    background: var(--transparency-popup);
+  }
+}
+
+@container style(--enable-blur: 1) {
+  .container__8a031 {
+    backdrop-filter: blur(var(--blur-popup));
+  }
 }
 
 
 /* SPOTIFY PLAYER */
+/*Thanks to Soul, https://github.com/ISOUL22/rice*/
 
 /* Hide default album art */
 #vc-spotify-info-wrapper > img,
@@ -867,11 +962,17 @@ span.guildTagContainer__63ed3 {
   background-image:    var(--vc-spotify-track-image);
   background-position: center;
   background-size:     cover;
-  filter: blur(var(--isc-bg-blur)) brightness(var(--isc-bg-brightness, 1));
+  filter: brightness(var(--isc-bg-brightness, 1));
+}
+
+@container style(--enable-blur: 1) {
+  #vc-spotify-player::before {
+    filter: blur(var(--isc-bg-blur)) brightness(var(--isc-bg-brightness, 1));
+  }
 }
 
 /* Gradient fade at bottom */
-#vc-spotify-player::after {
+.panels__5e434:not(:has([style*="--custom-nameplate"])) #vc-spotify-player::after {
   position:       absolute;
   top:            0;
   left:           0;
@@ -914,21 +1015,25 @@ span.guildTagContainer__63ed3 {
   padding:           7px;
   background-color:  var(--isc-icon-color, white);
   -webkit-mask-size: contain;
+  mask-size:         contain;
 }
 
 #vc-spotify-song-title::before {
   margin-top:         3px;
   -webkit-mask-image: url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/music-note.svg');
+  mask-image:         url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/music-note.svg');
 }
 
 #vc-spotify-song-title + p::before {
   margin-top:         0px;
   -webkit-mask-image: url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/user.svg');
+  mask-image:         url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/user.svg');
 }
 
 #vc-spotify-song-title + p + p::before {
   margin-top:         2px;
   -webkit-mask-image: url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/disc-alt.svg');
+  mask-image:         url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/disc-alt.svg');
 }
 
 /* Progress bar */
@@ -936,19 +1041,19 @@ span.guildTagContainer__63ed3 {
   margin: 0;
 }
 
-#vc-spotify-player .bar_a562c8 {
-  background-color: hsla(0, 0%, 100%, 0.2);
+#vc-spotify-player .bar__4c059 {
+  background-color: var(--isc-progress-bar-track);
 }
 
-#vc-spotify-player .barFill_a562c8 {
+#vc-spotify-player .barFill__4c059 {
   background-color: var(--isc-progress-bar);
 }
 
-#vc-spotify-progress-bar:hover .barFill_a562c8 {
+#vc-spotify-progress-bar:hover .barFill__4c059 {
   background-color: var(--isc-progress-bar-hover);
 }
 
-#vc-spotify-progress-bar .grabber_a562c8 {
+#vc-spotify-progress-bar .grabber__4c059 {
   visibility:       hidden;
   opacity:          0;
   transition:       opacity 0.1s;
@@ -960,7 +1065,7 @@ span.guildTagContainer__63ed3 {
   background-color: var(--isc-progress-bar-hover);
 }
 
-#vc-spotify-progress-bar:hover .grabber_a562c8 {
+#vc-spotify-progress-bar:hover .grabber__4c059 {
   visibility: visible;
   opacity:    1;
 }
@@ -1019,17 +1124,23 @@ svg.vc-spotify-shuffle,
 svg.vc-spotify-repeat {
   background-color:      currentColor;
   -webkit-mask-position: center;
+  mask-position:         center;
   -webkit-mask-repeat:   no-repeat;
+  mask-repeat:           no-repeat;
 }
 
 svg.vc-spotify-shuffle {
   -webkit-mask-image: url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/shuffle.svg');
+  mask-image:         url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/shuffle.svg');
   -webkit-mask-size:  24px 24px;
+  mask-size:          24px 24px;
 }
 
 svg.vc-spotify-repeat {
   -webkit-mask-image: url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/loop.svg');
+  mask-image:         url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/assets/loop.svg');
   -webkit-mask-size:  20px 20px;
+  mask-size:          20px 20px;
 }
 
 .vc-spotify-repeat-1 {
@@ -1038,60 +1149,206 @@ svg.vc-spotify-repeat {
   font-size:     1em;
 }
 
+/* Only when the user has a nameplate */
+.panels__5e434:has([style*="--custom-nameplate"]) #vc-spotify-player {
+  position:      relative;
+  border-radius: 8px 8px 0 0;
+}
+
+.panels__5e434:has([style*="--custom-nameplate"]) .container__37e49 {
+  position:      relative;
+  z-index:       2;
+  overflow:      hidden;
+  border-radius: 0 0 8px 8px;
+}
+
+.panels__5e434:has([style*="--custom-nameplate"]) .container_df39b2 {
+  border-radius: inherit;
+  overflow:      hidden;
+}
 
 /* Spotify transparency thing extended for other places*/
 
-.card__39ec2:has([aria-label="Spotify"]) {
-  position: relative !important;
-  overflow: hidden !important;
-  z-index: 1 !important;
+@container style(--enable-transparency: 1) {
+  .card__39ec2:has([aria-label="Spotify"]) {
+    position: relative !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+  }
+
+  .card__39ec2:has([aria-label="Spotify"]) img.contentImage__42bf5 {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    min-height: unset !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    z-index: -1 !important;
+    opacity: var(--transparency-spotify-artwork, 1) !important;
+    filter: brightness(var(--isc-bg-brightness, 1)) !important;
+  }
+
+  .card__39ec2:has([aria-label="Spotify"]) .imagePosition_ef9ae7 {
+    position: static !important;
+    display: contents !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+
+  .card__39ec2:has([aria-label="Spotify"]) .details__39ec2 {
+    width: 100% !important;
+    position: relative !important;
+    z-index: 2 !important;
+    text-shadow: hsl(0, 0%, 25%) 1px 1px;
+  }
 }
 
-.card__39ec2:has([aria-label="Spotify"]) img.contentImage__42bf5 {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  min-height: unset !important;
-  object-fit: cover !important;
-  z-index: -1 !important;
-  opacity: 0.3 !important;
+/* spotify blur in the other places for the image */
+@container style(--enable-transparency: 1) and style(--enable-blur: 1) {
+  .card__39ec2:has([aria-label="Spotify"]) img.contentImage__42bf5 {
+    filter: blur(var(--isc-bg-blur)) brightness(var(--isc-bg-brightness, 1)) !important;
+
+    top:    calc(var(--isc-bg-blur) * -1) !important;
+    left:   calc(var(--isc-bg-blur) * -1) !important;
+    width:  calc(100% + var(--isc-bg-blur) * 2) !important;
+    height: calc(100% + var(--isc-bg-blur) * 2) !important;
+  }
 }
 
-.card__39ec2:has([aria-label="Spotify"]) .imagePosition_ef9ae7 {
-  position: static !important;
-  display: contents !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
-.card__39ec2:has([aria-label="Spotify"]) .details__39ec2 {
-  width: 100% !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-.progress__8e51c{
-  background-color: var(--isc-progress-bar)
+.progress__8e51c {
+  background-color: var(--isc-progress-bar);
 }
 
 /* Spotify extended blur for the buttons and stuff (basically the stuff above with buttons having same features) */
 
 div[class*="card__"]:has(div[aria-label="Spotify"]) div[class*="actions__"] button[class*="button_"] div[class*="buttonChildrenWrapper_"] {
-  background-color: rgba(88, 101, 242, 0.2) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
   transition: background-color 0.15s ease, backdrop-filter 0.15s ease !important;
   border-radius: inherit !important;
 }
 
 div[class*="card__"]:has(div[aria-label="Spotify"]) div[class*="actions__"] button[class*="button_"]:hover div[class*="buttonChildrenWrapper_"] {
-  background-color: var(--main-color, #5865F2) !important;
-  backdrop-filter: blur(0px) !important;
-  -webkit-backdrop-filter: blur(0px) !important;
+  background-color: var(--main-color) !important;
 }
+
+@container style(--enable-transparency: 1) {
+  div[class*="card__"]:has(div[aria-label="Spotify"]) div[class*="actions__"] button[class*="button_"] div[class*="buttonChildrenWrapper_"] {
+    background-color: var(--transparency-spotify-button) !important;
+  }
+}
+
+@container style(--enable-blur: 1) {
+  div[class*="card__"]:has(div[aria-label="Spotify"]) div[class*="actions__"] button[class*="button_"] div[class*="buttonChildrenWrapper_"] {
+    backdrop-filter: blur(var(--blur-spotify-button)) !important;
+    -webkit-backdrop-filter: blur(var(--blur-spotify-button)) !important;
+  }
+
+  div[class*="card__"]:has(div[aria-label="Spotify"]) div[class*="actions__"] button[class*="button_"]:hover div[class*="buttonChildrenWrapper_"] {
+    backdrop-filter: blur(0px) !important;
+    -webkit-backdrop-filter: blur(0px) !important;
+  }
+}
+
+/*spotify image extention (transparency + blur) to the friends page*/
+@container style(--enable-transparency: 1) {
+  .section__00943:has(.spotifySection__00943) {
+    position:         relative !important;
+    overflow:         hidden !important;
+    z-index:          1 !important;
+    background-color: transparent !important;
+  }
+
+  .section__00943:has(.spotifySection__00943) .spotifySection__00943.activitySection__00943 {
+    display:              grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .section__00943:has(.spotifySection__00943) .activitySectionAssets__00943 {
+    position:      absolute !important;
+    inset:         0 !important;
+    width:         100% !important;
+    height:        100% !important;
+    margin:        0 !important;
+    padding:       0 !important;
+    border-radius: 0 !important;
+    overflow:      visible !important;
+    background:    none !important;
+    z-index:       -1 !important;
+  }
+
+  .section__00943:has(.spotifySection__00943) img.largeImage__00943 {
+    position:      absolute !important;
+    top:           0 !important;
+    left:          0 !important;
+    width:         100% !important;
+    height:        100% !important;
+    max-width:     none !important;
+    min-height:    unset !important;
+    margin:        0 !important;
+    padding:       0 !important;
+    border-radius: 0 !important;
+    box-shadow:    none !important;
+    object-fit:    cover !important;
+    object-position: center !important;
+    opacity:       var(--transparency-spotify-artwork, 1) !important;
+    filter:        brightness(var(--isc-bg-brightness, 1)) !important;
+  }
+
+  /* fade under */
+  .section__00943:has(.spotifySection__00943)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent 68%, var(--isc-bg));
+  }
+
+  .section__00943:has(.spotifySection__00943) .activitySectionAssets__00943 + div {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    text-shadow: hsl(0, 0%, 25%) 1px 1px;
+  }
+}
+
+@container style(--enable-transparency: 1) and style(--enable-blur: 1) {
+  .section__00943:has(.spotifySection__00943) img.largeImage__00943 {
+    filter: blur(var(--isc-bg-blur)) brightness(var(--isc-bg-brightness, 1)) !important;
+
+    top:    calc(var(--isc-bg-blur) * -1) !important;
+    left:   calc(var(--isc-bg-blur) * -1) !important;
+    width:  calc(100% + var(--isc-bg-blur) * 2) !important;
+    height: calc(100% + var(--isc-bg-blur) * 2) !important;
+  }
+}
+
+/* tooltip fix */
+@container style(--enable-transparency: 1) {
+  .card__39ec2:has([aria-label="Spotify"]) .imagePosition_ef9ae7,
+  .card__39ec2:has([aria-label="Spotify"]) img.contentImage__42bf5,
+  .section__00943:has(.spotifySection__00943) .activitySectionAssets__00943,
+  .section__00943:has(.spotifySection__00943) img.largeImage__00943 {
+    pointer-events: none !important;
+  }
+}
+
+/* hide the lucky block pleaceholder thing */
+@container style(--enable-transparency: 1) {
+  .card__39ec2:has([aria-label="Spotify"]) svg.contentImage__42bf5,
+  .section__00943:has(.spotifySection__00943) .activitySectionAssets__00943 svg {
+    display: none !important;
+  }
+}
+
 
 /* USER PANEL ORDER */
 
@@ -1105,12 +1362,14 @@ section.panels__5e434 #vc-spotify-player    { order: var(--ics-panel-order-spoti
 section.panels__5e434 .wrapper_e131a9       { order: var(--ics-panel-order-voicechat); }
 section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user); }
 
-.panels__5e434 div.panel__5dec7.activityPanel__5e434 {
-  background-color: transparent;
-}
-
 .panels__5e434 .container_e131a9 {
   padding-top: 12px;
+}
+
+@container style(--enable-transparency: 1) {
+  .panels__5e434 div.panel__5dec7.activityPanel__5e434 {
+    background-color: transparent;
+  }
 }
 
 /* Optional: expand panel to fit cover art
@@ -1131,79 +1390,89 @@ section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user)
 
 /* TRANSPARENT MESSAGING */
 
-@container style(--tm-enable: 1) {
-  form.formWithLoadedChatInput_f75fb0 {
-    margin-top: -51vh;
+@container style(--enable-transparency: 1) {
+  body {
+    --chat-background-default: 0 0;
   }
+}
 
-  div.messagesWrapper__36d07 > div.jumpToPresentBar__0f481 {
-    bottom: 52vh;
-  }
-
-  div.messagesWrapper__36d07 > form,
-  div.channelTextArea_f75fb0::before,
-  div.wrapper__44df5 {
-    backdrop-filter: blur(var(--tm-blur));
-  }
-
-  div.channelTextArea_f75fb0 {
-    position: relative;
-
-    &::before {
-      content:       "";
-      position:      absolute;
-      inset:         0;
-      border-radius: inherit;
+@container style(--enable-transparency: 1) {
+  @container style(--tm-enable: 1) {
+    form.formWithLoadedChatInput_f75fb0 {
+      margin-top: -51vh;
     }
 
-    /*  */
-      > * {
-        position: relative;
+    div.messagesWrapper__36d07 > div.jumpToPresentBar__0f481 {
+      bottom: 52vh;
+    }
+
+    @container style(--enable-blur: 1) {
+      div.messagesWrapper__36d07 > form,
+      div.channelTextArea_f75fb0::before,
+      div.wrapper__44df5 {
+        backdrop-filter: blur(var(--tm-blur));
       }
-    /*  */
-    
-    > div.autocomplete__13533 {
-      position: absolute;
     }
 
-    > *:not(div.autocomplete__13533) {
-      background: 0 0 !important;
+    div.channelTextArea_f75fb0 {
+      position: relative;
+
+      &::before {
+        content:       "";
+        position:      absolute;
+        inset:         0;
+        border-radius: inherit;
+      }
+
+      /*  */
+        > * {
+          position: relative;
+        }
+      /*  */
+
+      > div.autocomplete__13533 {
+        position: absolute;
+      }
+
+      > *:not(div.autocomplete__13533) {
+        background: 0 0 !important;
+      }
     }
-  }
 
-  .chat_f75fb0 {
-    overflow: clip;
-  }
+    .chat_f75fb0 {
+      overflow: clip;
+    }
 
-  ol.scrollerInner__36d07::after {
-    display:   block;
-    content:   "";
-    position:  relative;
-    height:    50vh;
-  }
+    ol.scrollerInner__36d07::after {
+      display:   block;
+      content:   "";
+      position:  relative;
+      height:    50vh;
+    }
 
-  div.floatingBars__74017 .banner__183e8 {
-    background: 0 0;
-  }
+    div.floatingBars__74017 .banner__183e8 {
+      background: 0 0;
+    }
 
-  div.wrapper__44df5 {
-    background: 0 0;
-  }
+    div.wrapper__44df5 {
+      background: 0 0;
+    }
 
-  .chatTypingGradientAtBottom__36d07,
-  .chatGradient__36d07,
-  .chatGradientBase__36d07 {
-    display: none !important;
-  }
+    .chatTypingGradientAtBottom__36d07,
+    .chatGradient__36d07,
+    .chatGradientBase__36d07 {
+      display: none !important;
+    }
 
-  :where(.custom-theme-background) .channelTextArea__74017 {
-    background: none !important;
-  }
+    :where(.custom-theme-background) .channelTextArea__74017 {
+      background: none !important;
+    }
 
-  .managedReactiveScroller_d125d2,
-  .scroller__36d07 {
-    &::-webkit-scrollbar-button:end:increment {
-      height: 35%;
+    .managedReactiveScroller_d125d2,
+    .scroller__36d07 {
+      &::-webkit-scrollbar-button:end:increment {
+        height: 35%;
+      }
     }
   }
 }
@@ -1223,7 +1492,8 @@ section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user)
 
 /* Create stacking context */
 .profile__9c3be {
-  transform: translateZ(0) !important;
+  isolation: isolate;
+  z-index: 1;
 }
 
 /* Stretch profile background image to fill */
@@ -1236,9 +1506,11 @@ section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user)
 }
 
 /* Remove black boxes */
-.profileHeader__9c3be,
-.banner__68edb {
-  background-color: transparent !important;
+@container style(--enable-transparency: 1) {
+  .profileHeader__9c3be,
+  .banner__68edb {
+    background-color: transparent !important;
+  }
 }
 
 /* Optional: alternate profile background approach (disabled)
@@ -1308,30 +1580,30 @@ section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user)
 
 /* Tab items */
 .tabBarItem__37bfc.item_aa8da2 {
-  padding:        8px 10px !important;
-  margin:         0 !important;
-  font-size:      14px !important;
-  font-weight:    500 !important;
-  border-radius:  8px !important;
-  cursor:         pointer !important;
-  display:        inline-flex !important;
-  align-items:    center !important;
-  justify-content: center !important;
-  color:          var(--text-muted, #949ba4) !important;
+  padding:        8px 10px;
+  margin:         0;
+  font-size:      14px;
+  font-weight:    500;
+  border-radius:  8px;
+  cursor:         pointer;
+  display:        inline-flex;
+  align-items:    center;
+  justify-content: center;
+  color:          var(--text-muted, #949ba4);
   transition:
     background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
     color            0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    transform        0.1s ease !important;
+    transform        0.1s ease;
 }
 
 /* Tab hover state */
 .tabBarItem__37bfc.item_aa8da2:hover {
-  color: var(--text-normal, #f2f3f5) !important;
+  color: var(--text-normal, #f2f3f5);
 }
 
 /* Tab selected state */
 .tabBarItem__37bfc.item_aa8da2.selected_aa8da2 {
-  color: var(--text-normal, #ffffff) !important;
+  color: var(--text-normal, #ffffff);
 }
 
 /* MISC */
@@ -1343,15 +1615,6 @@ section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user)
   column-gap:  20px;
   row-gap:     20px;
 }
-/* if that plugin isnt enabled this will be used */
-.tabListScroller__37bfc:has(.top_aa8da2) .top_aa8da2 {
-  display:     flex !important;
-  flex-wrap:   wrap !important;
-  column-gap:  20px;
-  row-gap:     20px;
-}
-
-
 
 .tabBarItem__37bfc {
   margin-left: 0 !important;
@@ -1367,7 +1630,6 @@ section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user)
 }
 
 .scrim__40128 {
-  background-color: #000000cc;
   bottom:           0;
   left:             0;
   pointer-events:   auto;
@@ -1377,68 +1639,113 @@ section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user)
   transform:        translateZ(0);
 }
 
+@container style(--enable-transparency: 1) {
+  .scrim__40128 {
+    background-color: var(--transparency-scrim);
+  }
+}
+
+@container style(--enable-blur: 1) {
+  .scrim__40128 {
+    backdrop-filter: var(--background-main-blur);
+  }
+}
+
+/* fade for scrim */
+@keyframes scrimFadeIn {
+  from { opacity: 0.5; }
+  to   { opacity: 1; }
+}
+
+.scrim__40128 {
+  animation: scrimFadeIn 1s ease forwards;
+}
+
 /* new view profile button is hidden */
 .redesignFooter__272c7{
     display:none
 }
 
-.root__49fc1.root__49fc1,
-.footerSeparator__49fc1,
-.separator__49fc1,
-.tips_ea12e5 {
-    backdrop-filter: blur(12px);
+/* not needed, if you need it just uncomment it (i think it's only used for images on full screen view aka extra blur)
+
+@container style(--enable-blur: 1) {
+  .root__49fc1.root__49fc1,
+  .footerSeparator__49fc1,
+  .separator__49fc1,
+  .tips_ea12e5 {
+    backdrop-filter: blur(var(--blur-modal));
+  }
 }
 
-/* invisible transparency with blur for modals background */
 .root__49fc1.root__49fc1 {
-    background-color: rgba(19, 20, 22, 0.5);
-    border-radius: var(--radius-md);
+  border-radius: var(--radius-md);
 }
+
+@container style(--enable-transparency: 1) {
+  .root__49fc1.root__49fc1 {
+    background-color: var(--transparency-modal);
+  }
+}
+
+*/
 
 /* Separators fix */
 .footerSeparator__49fc1,
 .separator__49fc1 {
-    box-shadow: none;
-    background-color: rgba(19, 20, 22, 0.1);
+  box-shadow: none;
+}
+
+@container style(--enable-transparency: 1) {
+  .footerSeparator__49fc1,
+  .separator__49fc1 {
+    background-color: var(--transparency-separator);
+  }
 }
 
 /* Tips fix */
 .tips_ea12e5 {
-    background-color: rgba(23, 24, 26, 0.6);
-    border-radius: 8px;
-    margin: 16px 0;
-    padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  padding: 16px;
+}
+
+@container style(--enable-transparency: 1) {
+  .tips_ea12e5 {
+    background-color: var(--transparency-tips);
+  }
 }
 
 /* fade for server links (banner) */
 .banner__083ae {
-    position: relative;
+  position: relative;
 }
 .banner__083ae::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%; 
-    background: linear-gradient(to top, var(--fade-banner-invite), transparent);
-    pointer-events: none; 
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to top, var(--fade-banner-invite), transparent);
+  pointer-events: none;
 }
 
 /* background transparency on onboarding */
 /* promptContent_fe70ca <-- this was unnecessary because it was already transparent */
-.prompt_fe70ca,
-.navButtons_fe70ca,
-.scrollerContent_fe70ca {
-  background-color: var(--background-main-transparency);
-  backdrop-filter: var(--background-main-blur)
+@container style(--enable-transparency: 1) {
+  .prompt_fe70ca,
+  .navButtons_fe70ca,
+  .scrollerContent_fe70ca {
+    background-color: var(--background-main-transparency);
+  }
 }
 
-/* quest thing near profile has transparency now */
-.wrapper__0d616,
-.postEnrollmentBackground__24e2c {
-  background-color: var(--background-main-transparency);
-  backdrop-filter: var(--background-main-blur);
+@container style(--enable-blur: 1) {
+  .prompt_fe70ca,
+  .navButtons_fe70ca,
+  .scrollerContent_fe70ca {
+    backdrop-filter: var(--background-main-blur);
+  }
 }
 
 /* quest thing near profile has transparency now */
@@ -1448,8 +1755,336 @@ section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user)
   background-image: none !important;
 }
 
-/* transparency on edit menu */
-.menu_c1e9c4{
-  background-color: var(--semi-tranparency);
-  backdrop-filter: var(--background-main-blur);
+/* fixed thanks to translucense by caprikitten */
+@container style(--enable-transparency: 1) {
+  .menu_c1e9c4 {
+    position: relative;
+    background-color: transparent !important;
+  }
+
+  .menu_c1e9c4::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: var(--transparency-menu);
+    pointer-events: none;
+  }
+}
+
+@container style(--enable-blur: 1) {
+  .menu_c1e9c4::before {
+    backdrop-filter: blur(var(--blur-popup));
+    -webkit-backdrop-filter: blur(var(--blur-popup));
+  }
+}
+
+
+/* Optional CodeBlocks
+:root {
+  --ag-bg: rgb(16, 16, 16);
+  --ag-line: rgba(255, 255, 255, 0.07);
+  --ag-text-dim: rgb(123, 131, 148);
+  --ag-text: rgb(223, 227, 238);
+  --ag-radius: 4px;
+}
+
+
+.vc-shiki-root {
+  border-radius: calc(var(--ag-radius) - 1px);
+  background: var(--ag-bg) !important;
+  overflow: hidden;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+}
+
+plain text on the block's own background and bigger icon
+.vc-shiki-lang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 12px 4px;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ag-text-dim);
+  background: none;
+  border: none;
+  width: fit-content;
+}
+
+.vc-shiki-devicon {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1;
+}
+
+Code table
+.vc-shiki-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.vc-shiki-table-row:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.vc-shiki-table-cell:first-child {
+  user-select: none;
+  min-width: 34px;
+  padding: 0 12px 0 14px;
+  text-align: right;
+  color: var(--ag-text-dim) !important;
+  border-right: 1px solid var(--ag-line);
+  font-variant-numeric: tabular-nums;
+}
+
+.vc-shiki-table-cell:last-child {
+  padding: 0 16px 0 12px;
+}
+
+.vc-shiki-code {
+  display: block;
+  padding-bottom: 8px;
+}
+
+Copy button
+
+.vc-shiki-container:hover .vc-shiki-btns {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vc-shiki-btn {
+  background: rgba(43, 43, 43) !important;
+  color: #dfe3ee !important;
+  border: 1px solid var(--ag-line);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+hide platform badge on chat
+.vc-platform-indicator {
+    display: none;
+}
+*/
+
+/*hide platform badge on chat*/
+.header_c19a55 .vc-platform-indicator {
+    display: none;
+}
+
+
+/* typing indicator */
+
+.typing_b88801 {
+  display: flex;
+  align-items: flex-end;
+  z-index: 2;
+  height: 25px;
+  padding: 0 10px 4px 18px;
+  margin-bottom: 16px;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+/* dots container */
+.typing_b88801 .typingDots_b88801 {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 4px 15px 4px 12px;
+  border-radius: 999px;
+  border: none;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  animation: tiIn 0.38s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+}
+
+@keyframes tiIn {
+  from { opacity: 0; transform: translateY(7px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* wave dots thingys that move */
+.typing_b88801 .typingDots_b88801 svg.ellipsis_b88801 {
+  display: block;
+  flex: 0 0 auto;
+  width: 21px;
+  height: 14px;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--success-color) 65%, transparent));
+}
+
+.typing_b88801 .typingDots_b88801 svg.ellipsis_b88801 g {
+  animation: none;
+  opacity: 1;
+}
+
+.typing_b88801 .typingDots_b88801 svg.ellipsis_b88801 circle {
+  r: 2.2px;
+  cy: 11.5px;
+  fill: var(--text-normal);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tiWave var(--typing-speed) cubic-bezier(0.37, 0, 0.55, 1) infinite;
+}
+
+.typing_b88801 .typingDots_b88801 svg.ellipsis_b88801 circle:nth-of-type(1) { cx: 3px; }
+.typing_b88801 .typingDots_b88801 svg.ellipsis_b88801 circle:nth-of-type(2) { cx: 10.4px; animation-delay: 0.17s; }
+.typing_b88801 .typingDots_b88801 svg.ellipsis_b88801 circle:nth-of-type(3) { cx: 17.8px; animation-delay: 0.34s; }
+
+@keyframes tiWave {
+  0%, 100% { transform: scaleY(0.28); }
+  50%      { transform: scaleY(2.2); }
+}
+
+/* text label  */
+.typing_b88801 .typingDots_b88801 span.text_b88801:not([style]) {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.typing_b88801 .typingDots_b88801 span.text_b88801:not([style]) strong {
+  color: var(--text-normal);
+  font-weight: 700;
+}
+
+/* profile customization section */
+.container__49804{
+    background-color: rgb(0,0,0);
+}
+
+/* premium part [not fully black] */
+.premiumTryItOutSection__2447f,
+.premiumGradientBackground__93bef,
+.lockDividerCircle__2447f {
+    background-color: black;
+}
+
+.selectFieldContainer__0edde{
+    border: none !important;
+}
+
+
+
+/*Fade anim for dms selection (a bit inspired by clearvision)*/
+
+.interactive__972a0 {
+  transition: background-color 0.25s ease-in-out, transform 0.25s ease-in-out;
+}
+.interactive__972a0:hover {
+  background-color: rgba(255, 255, 255, 0.07); 
+}
+
+/*Unread Message transparency / blur stuff*/
+
+@container style(--enable-transparency: 1) {
+    .newMessagesBar__0f481,
+    .barBase__0f481,
+    .barButtonMain__0f481,
+    .barButtonBase__0f481 {
+        background-color: var(--transparency-new-message);
+    }
+}
+
+@container style(--enable-blur: 1) {
+    .newMessagesBar__0f481,
+    .barBase__0f481,
+    .barButtonMain__0f481,
+    .barButtonBase__0f481 {
+        backdrop-filter: blur(var(--background-blur));
+    }
+}
+
+/*
+this removes links and badges
+.anchor__14d82{
+    display: none;
+}
+*/
+
+/*stuff to test (still)*/
+
+/*inbox*/
+@container style(--enable-transparency: 1) {
+    .container__8cb2e {
+        background-color: var(--background-main-transparency);
+    }
+
+    .box__376cb {
+        background-color: rgba(0,0,0,1);
+    }
+
+    .channelHeader__5d903 {
+        background-color: rgba(0,0,0,1);
+    }
+}
+
+@container style(--enable-blur: 1) {
+    .container__8cb2e {
+        backdrop-filter: blur(var(--background-blur));
+    }
+}
+
+/*tooltip (for user profile?)*/
+@container style(--enable-transparency: 1) {
+    .tooltipPrimary_c36707 {
+        background-color: rgba(0,0,0,0) !important;
+    }
+
+    .tooltipPointerBg_c36707 {
+        border-top-color: rgba(0,0,0,0) !important;
+    }
+}
+
+@container style(--enable-blur: 1) {
+    .tooltipPrimary_c36707 {
+        backdrop-filter: blur(5px) !important;
+    }
+}
+
+/*transparency to dropdown (server tags, idk if more...)*/
+@container style(--enable-transparency: 1) {
+    .selectDropdown__0edde {
+        background-color: rgba(0,0,0,0);
+    }
+}
+
+@container style(--enable-blur: 1) {
+    .selectDropdown__0edde {
+        backdrop-filter: blur(10px);
+    }
+}
+
+/* pinned message*/
+@container style(--enable-transparency: 1) {
+    .header__432f4,
+    .messagesPopoutWrap__432f4 {
+        background-color: rgba(0,0,0,0);
+    }
+}
+
+@container style(--enable-blur: 1) {
+    .header__432f4,
+    .messagesPopoutWrap__432f4 {
+        backdrop-filter: blur(25px);
+    }
 }

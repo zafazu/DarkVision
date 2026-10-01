@@ -1424,11 +1424,9 @@ section.panels__5e434 .container__37e49     { order: var(--ics-panel-order-user)
         border-radius: inherit;
       }
 
-      /*  */
         > * {
           position: relative;
         }
-      /*  */
 
       > div.autocomplete__13533 {
         position: absolute;

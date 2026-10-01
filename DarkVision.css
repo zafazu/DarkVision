@@ -1,4 +1,6 @@
 :root {
+  
+  /* Main */
   --theme-version: 'Dev1.3.54 / 2.15.49';
   --profile-gradient-overlay-color: #4d444444 !important;
   --main-color: #292929;
@@ -20,8 +22,11 @@
   --members-width: 240px;
   --fade-banner-invite: #131416;
   --onyx-profile-color: rgb(0, 0, 0);
-  /*t*/ --enable-transparency: 1; /*1 = true and 0 = false*/
-  /*t*/ --enable-blur: 1; /*1 = true and 0 = false*/
+
+  /* Toggles */
+  /*t*/ --enable-transparency: 1; 
+  /*t*/ --enable-blur: 1; 
+  /*t*/ --hide-status: 0; 
 
   /* Background */
   --background-shading: 160%;
@@ -345,15 +350,11 @@
   position: relative;
 }
 
-
-/*
-" Friend status "
- this is the activity thing idk who called this friend status
-
-.container_c9d15c {
-  display: none;
+@container style(--hide-status: 1){
+  .container_c9d15c{
+    display: none;
+  }
 }
-*/
 
 
 /*  i don't think you will need this [OLD]

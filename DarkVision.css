@@ -426,6 +426,8 @@
   font-weight: 600;
   color: var(--text-default);
   order: 2;
+  flex-shrink: 0;
+  white-space: nowrap;
   filter: drop-shadow(0 0 5px var(--hsl-main-color));
 }
 
@@ -437,11 +439,25 @@
   position: static;
   margin-top: -5px;
   margin-left: 5px;
+  margin-right: 12px; 
   font-family: var(--code-font);
   font-size: 11px;
   font-weight: 600;
   color: var(--text-muted);
   order: 3;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.leading_c38106 [class*="backForwardButtons_"] {
+  order: 1;
+  flex-shrink: 0;
+}
+
+.leading_c38106 [class*="tabBar_"] {
+  order: 4;
+  flex: 1 1 auto;
+  min-width: 0; 
 }
 
 @container style(--enable-transparency: 1) {

@@ -25,6 +25,11 @@
     /* Remove bottom border in chat */
     .container__9293f {
     border-bottom: none !important;
+    }
+    
+    /* Remove Group Borders */
+    .container_c8ffbb {
+    border: none !important;
 }
 
 /* Remove the "Find or start a conversation" */

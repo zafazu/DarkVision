@@ -6,8 +6,9 @@
 :root{
 /* DarkVision Version */
     --theme-version: 'Dev1.3.59 / 3.0.0';
+
 /* Main */
-.theme-midnight{
+    .theme-midnight{
     --main-color: #000000;
     }
 }
@@ -16,14 +17,14 @@
 
 
 /* Remove Borders */
-    /*Servers Border*/
+    /* Servers Border */
     .sidebarListRounded__5e434 {
     border-color: transparent !important;
     }
 
-    /*Top Border*/
-    .chat_f75fb0 {
-    border-color: transparent !important;
+    /* Remove bottom border in chat */
+    .container__9293f {
+    border-bottom: none !important;
 }
 
 /* Remove the "Find or start a conversation" */

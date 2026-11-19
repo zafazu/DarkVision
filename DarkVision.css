@@ -11,7 +11,7 @@
 /* Main */
     :root{
     /* DarkVision Version */
-    --theme-version: 'Dev1.3.59 / 3.0.0';
+    --theme-version: 'Dev1.4 / 3.0.0';
 
     --code-font: Consolas, Liberation Mono, Menlo, Courier, monospace;
     
@@ -186,7 +186,7 @@ body {
     /* Quest Color */
     .postEnrollmentBackground_ZzrVHV {
       background-image: none !important;
-      background-color: var(--main-color) !important;
+      background-color: var(--background-base-low) !important;
 }
 
 
